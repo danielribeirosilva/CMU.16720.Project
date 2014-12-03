@@ -8,7 +8,25 @@ CellSizes{3} = [4 4];
 BlockSize = [2 2];
 weights = [1 2 4];
 
-I = imread('data/00/00003.ppm');
+%data
+folderNums = 1:10;
+
+for folder = folderNums
+    folderName = getFolderName(folder);
+    files = dir(['data/' folderName '/*.ppm']);
+    for file = files'
+        if file.name(1)=='.'
+            continue
+        end
+        filePath = ['data/' folderName '/' file.name];
+        I = imread(filePath);
+        
+        
+        
+    end 
+end
+
+
 
 I = rgb2gray(I);
 
