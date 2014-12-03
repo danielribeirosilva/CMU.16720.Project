@@ -21,7 +21,10 @@ function [acc] = mFoldKnn(data, labels, K, m)
         test_label = labels(test_idx,:);
 
         %classify
-        pred_label = knnclassify(test_data,train_data,train_label,K);
+        %pred_label = knnclassify(test_data,train_data,train_label,K);
+        mdl = fitcknn(train_data,train_label);
+        mdl.NumNeighbors = K;
+        pred_label = predict(mdl,test_data);
 
         %store
         Pred(test_idx) = pred_label;
@@ -33,6 +36,5 @@ function [acc] = mFoldKnn(data, labels, K, m)
     end
 
     acc = mean(Accuracy);
-    fprintf('K-NN accuracy for K=%i: %f\n', K, acc);
 
 end
