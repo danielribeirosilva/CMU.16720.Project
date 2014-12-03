@@ -12,7 +12,8 @@ nDims = 30;
 %data
 folderNums = 1:10;
 allFeatures = [];
-
+allLabels = [];
+%extract data
 for folder = folderNums
     folderName = getFolderName(folder);
     files = dir(['data/' folderName '/*.ppm']);
@@ -31,12 +32,28 @@ for folder = folderNums
         %get features
         features = extractFeatures(I, CellSizes, BlockSize, weights);
         allFeatures = [allFeatures; features];
+        allLabels = [allLabels; folder];
     end 
 end
 
-
 %reduce dimension
 reduced_features = reduceDimension(allFeatures, nDims);
+
+%shuffle data
+perm = randperm(size(reduced_features,1));
+data = reduced_features(perm,:);
+labels = allLabels(perm,:);
+
+%------------------
+% CLASSIFY
+%------------------
+
+%K-NN 
+m = 10;
+for K=1:20
+    [acc] = mFoldKnn(data, labels, K, m);
+end
+
 
 
 
