@@ -33,6 +33,6 @@ function [acc] = mFoldKnn(data, labels, K, m)
     end
 
     acc = mean(Accuracy);
-    fprintf('K-means accuracy for K=%i: %f\n', K, acc);
+    fprintf('K-NN accuracy for K=%i: %f\n', K, acc);
 
 end

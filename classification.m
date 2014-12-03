@@ -10,7 +10,7 @@ weights = [1 2 4];
 nDims = 30;
 
 %data
-folderNums = 1:10;
+folderNums = 0:42;
 allFeatures = [];
 allLabels = [];
 %extract data
