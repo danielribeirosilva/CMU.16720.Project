@@ -13,6 +13,7 @@ weights = [1 2 4];
 nDims = 30;
 redMethod = 'KPCA';
 featureMethod = 'HOG_I';
+classificationMethod = 'RandomForest';
 
 
 %data
@@ -55,23 +56,45 @@ labels = allLabels(perm,:);
 % CLASSIFY
 %------------------
 
-%K-NN 
-m = 10;
-allK = 1:20;
-acc = zeros(1,numel(allK));
-for i=1:numel(allK)
-    K = allK(i);
-    acc(i) = mFoldKnn(data, labels, K, m);
-    fprintf('K-NN accuracy for K=%i: %f\n', K, acc(i));
-end
+allParams = [];
 
+%K-NN 
+if strcmp(classificationMethod, 'kNN')
+    m = 10;
+    allK = 1:20;
+    acc = zeros(1,numel(allK));
+    for i=1:numel(allK)
+        K = allK(i);
+        acc(i) = mFoldKnn(data, labels, K, m);
+        fprintf('K-NN accuracy for K=%i: %f\n', K, acc(i));
+    end
+    
+    result.allParams = allK;
+    
+%Random Forest
+elseif strcmp(classificationMethod, 'RandomForest')
+
+    m = 10;
+    allNTrees = 10:5:100;
+    acc = zeros(1,numel(allNTrees));
+    for i=1:numel(allNTrees)
+        nTrees = allNTrees(i);
+        acc(i) = mFoldRandomForest(data, labels, nTrees, m);
+        fprintf('Random Forest with %i trees -> Accuracy: %.4f\n', nTrees, acc(i));
+    end
+    
+    result.allParams = allNTrees;
+
+end
 
 %record results
 result.nDims = nDims;
 result.featureMethod = featureMethod;
 result.redMethod = redMethod;
+result.classificationMethod = classificationMethod;
 result.acc = acc;
-result.allK = allK;
+result.allParams = allParams;
+
 
 
 

@@ -4,7 +4,7 @@ MyStyles = {'-*';'-';':+';'--';'-.'};
 load('knnResults.mat');
 n = numel(knnResults);
 
-X = knnResults(1).allK;
+X = knnResults(1).allParams;
 allY = zeros(n,size(X,2));
 allLegends = cell(1,n);
 for i=1:n
