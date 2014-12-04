@@ -10,7 +10,7 @@ CellSizes{2} = [7 7];
 CellSizes{3} = [4 4];
 BlockSize = [2 2];
 weights = [1 2 4];
-nDims = 15;
+nDims = 30;
 redMethod = 'KPCA';
 featureMethod = 'HOG_I';
 
@@ -44,7 +44,7 @@ for folder = folderNums
 end
 
 %reduce dimension
-reduced_features = reduceDimension(allFeatures, nDims, redMethod);
+reduced_features = reduceDimension(allFeatures, nDims, redMethod, allLabels);
 
 %shuffle data
 perm = randperm(size(reduced_features,1));
