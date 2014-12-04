@@ -17,6 +17,7 @@ gt=load(gt_train_file);
 pos_feas = [];
 neg_feas = [];
 for i=1:size(gt,1)
+    fprintf('current training image: %i\n', i);
     filename = sprintf('%05d.ppm', gt(i,1));
     filename = sprintf('%s/%s', datapath, filename);
     I=imread(filename);
@@ -29,6 +30,7 @@ test_pos_feas = [];
 test_neg_feas = [];
 gtest=load(gt_test_file);
 for i=1:size(gtest,1)
+    fprintf('current testing image: %i\n', i);
     filename = sprintf('%05d.ppm', gtest(i,1));
     filename = sprintf('%s/%s', datapath, filename);
     I=imread(filename);
@@ -50,8 +52,10 @@ Yt = zeros(num_test_pos+num_test_neg, 1);
 Yt(1:num_test_pos) = 1;
 SVMModel = fitcsvm(reduceMatrix(1:num_train_pos+num_train_neg, :),Y,'KernelFunction','rbf');
 [label,score] = predict(SVMModel,reduceMatrix(1:num_train_pos+num_train_neg, :));
-size(find(label==Y),1)/size(Y,1)
+trainingAcc = size(find(label==Y),1)/size(Y,1);
+fprintf('training accuracy: %f\n', trainingAcc);
 [label,score] = predict(SVMModel,reduceMatrix(num_train_pos+num_train_neg+1:num_train_pos+num_train_neg+num_test_pos+num_test_neg, :));
-size(find(label==Yt),1)/size(Yt,1)
+testingAcc = size(find(label==Yt),1)/size(Yt,1);
+fprintf('training accuracy: %f\n', testingAcc);
 end
 
