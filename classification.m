@@ -10,8 +10,8 @@ CellSizes{2} = [7 7];
 CellSizes{3} = [4 4];
 BlockSize = [2 2];
 weights = [1 2 4];
-nDims = 30;
-redMethod = 'PCAStandarized';
+nDims = 15;
+redMethod = 'KPCA';
 featureMethod = 'HOG+I';
 classificationMethod = 'RandomForest';
 

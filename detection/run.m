@@ -13,6 +13,7 @@ function run( gt_train_file, gt_test_file, datapath )
 
 %TRAIN Summary of this function goes here
 %   Detailed explanation goes here
+nDimensions = 15;
 gt=load(gt_train_file);
 pos_feas = [];
 neg_feas = [];
@@ -41,7 +42,7 @@ end
 
 reduceMatrix=[pos_feas; neg_feas; test_pos_feas; test_neg_feas];
 [~,scores] = princomp(reduceMatrix);
-reduced_features = scores(:,1:50);
+reduced_features = scores(:,1:nDimensions);
 num_train_pos = size(pos_feas, 1);
 num_train_neg = size(neg_feas, 1);
 num_test_pos = size(test_pos_feas, 1);
@@ -56,6 +57,6 @@ trainingAcc = size(find(label==Y),1)/size(Y,1);
 fprintf('training accuracy: %f\n', trainingAcc);
 [label,score] = predict(SVMModel,reduceMatrix(num_train_pos+num_train_neg+1:num_train_pos+num_train_neg+num_test_pos+num_test_neg, :));
 testingAcc = size(find(label==Yt),1)/size(Yt,1);
-fprintf('training accuracy: %f\n', testingAcc);
+fprintf('testing accuracy: %f\n', testingAcc);
 end
 

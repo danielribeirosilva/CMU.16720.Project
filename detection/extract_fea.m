@@ -17,7 +17,7 @@ patch_width = rightCol-leftCol;
 patch_hight = bottomRow - topRow;
 
 neg_feas = [];
-for t=1:20
+for t=1:5
     r = randi([1, m-patch_hight-1]);
     r2 = randi([1, n-patch_width-1]);
     [ sim ] = jaccard( r2, r, r2+patch_width, r+patch_hight, leftCol, topRow, rightCol, bottomRow );
