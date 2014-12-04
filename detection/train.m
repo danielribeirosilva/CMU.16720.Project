@@ -5,7 +5,6 @@ gt=load(gt_file);
 pos_feas = [];
 neg_feas = [];
 for i=1:size(gt,1)
-    fprintf('Current train img: %i\n', i);
     filename = sprintf('%05d.ppm', gt(i,1));
     filename = sprintf('%s/%s', datapath, filename);
     I=imread(filename);
