@@ -3,7 +3,7 @@ function [features] = extractFeatures(I, CellSizes, BlockSize, weights, method)
 features = [];
 
 % HOG + I (grayscale)
-if strcmp(method, 'HOG_I')
+if strcmp(method, 'HOG+I')
     
     I = rgb2gray(I);
     total_hog = [];

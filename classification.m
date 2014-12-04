@@ -11,8 +11,8 @@ CellSizes{3} = [4 4];
 BlockSize = [2 2];
 weights = [1 2 4];
 nDims = 30;
-redMethod = 'KPCA';
-featureMethod = 'HOG_I';
+redMethod = 'PCAStandarized';
+featureMethod = 'HOG+I';
 classificationMethod = 'RandomForest';
 
 
@@ -69,7 +69,7 @@ if strcmp(classificationMethod, 'kNN')
         fprintf('K-NN accuracy for K=%i: %f\n', K, acc(i));
     end
     
-    result.allParams = allK;
+    allParams = allK;
     
 %Random Forest
 elseif strcmp(classificationMethod, 'RandomForest')
@@ -83,7 +83,7 @@ elseif strcmp(classificationMethod, 'RandomForest')
         fprintf('Random Forest with %i trees -> Accuracy: %.4f\n', nTrees, acc(i));
     end
     
-    result.allParams = allNTrees;
+    allParams = allNTrees;
 
 end
 
